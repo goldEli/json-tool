@@ -1,2 +1,5 @@
 /node_modules
 .DS_Store
+/src/updateLan/web_separation
+/src/updateLan/web-trade
+/src/updateLan/config.py
