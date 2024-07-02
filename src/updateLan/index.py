@@ -53,5 +53,5 @@ def update_and_merge_branches(repo_dir, main_branch, webUrl):
         # 恢复原来的工作目录
         os.chdir(original_dir)
 
-update_and_merge_branches(os.path.join(current_directory, 'web_separation'), 'master', WEB_SEPARATION_URL)
+update_and_merge_branches(os.path.join(current_directory, 'web_separation'), 'main', WEB_SEPARATION_URL)
 update_and_merge_branches(os.path.join(current_directory, 'web-trade'), 'main', WEB_TRADE_URL)
