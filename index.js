@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { stg_trade, stg_web } from './src/config/url.js';
 import { open } from './src/utils/open.js';
+import { selectDeployUrl } from './src/deploy.js';
 
 // 获取当前文件的 URL
 const __filename = fileURLToPath(import.meta.url);
@@ -20,7 +21,7 @@ program
     .option('-u, --url <url>', 'JSON file URL')
     .option('-r, --replace <replace>', 'Replace JSON value')
     .option('-l, --lan', 'update language')
-    .option('-d, --deploy <deploy>', 'deploy stg sever')
+    .option('-d, --deploy ', 'deploy stg sever')
     // .option('-c, --compareValue <value>', 'Value to compare')
     .parse(process.argv);
 
@@ -44,11 +45,7 @@ if (options.lan) {
     });
 } else if (options.deploy) {
 
-    if (options.deploy === 'web') {
-        open(stg_web)
-    } else if (options.deploy === 'trade') {
-        open(stg_trade)
-    }
+    selectDeployUrl()
 
 
 } else {
