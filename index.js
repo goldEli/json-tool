@@ -7,6 +7,8 @@ import { spawn } from 'child_process'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { stg_trade, stg_web } from './src/config/url.js';
+import { open } from './src/utils/open.js';
 
 // 获取当前文件的 URL
 const __filename = fileURLToPath(import.meta.url);
@@ -18,6 +20,7 @@ program
     .option('-u, --url <url>', 'JSON file URL')
     .option('-r, --replace <replace>', 'Replace JSON value')
     .option('-l, --lan', 'update language')
+    .option('-d, --deploy <deploy>', 'deploy stg sever')
     // .option('-c, --compareValue <value>', 'Value to compare')
     .parse(process.argv);
 
@@ -26,7 +29,7 @@ const options = program.opts();
 
 if (options.lan) {
 
-    const ls = spawn('python', [path.join(__dirname,'./src/updateLan/index.py')]);
+    const ls = spawn('python', [path.join(__dirname, './src/updateLan/index.py')]);
 
     ls.stdout.on('data', (data) => {
         console.log(`${data}`);
@@ -39,6 +42,15 @@ if (options.lan) {
     ls.on('close', (code) => {
         console.log(`Child process exited with code ${code}`);
     });
+} else if (options.deploy) {
+
+    if (options.deploy === 'web') {
+        open(stg_web)
+    } else if (options.deploy === 'trade') {
+        open(stg_trade)
+    }
+
+
 } else {
     const compareValue = clipboardy.readSync().trim();
     if (compareValue) {

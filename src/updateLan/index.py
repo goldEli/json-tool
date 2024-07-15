@@ -13,7 +13,7 @@ current_directory = os.path.dirname(current_file_path)
 # 拼接 ./src 路径
 src_directory = os.path.join(current_directory, 'src')
 
-def update_and_merge_branches(repo_dir, main_branch, webUrl):
+def update_and_merge_branches(repo_dir, main_branch, target_branch, webUrl):
     """
     更新 main 分支，并将其合并到目标分支，然后将目标分支推送到 origin。
 
@@ -23,7 +23,6 @@ def update_and_merge_branches(repo_dir, main_branch, webUrl):
     """
     # 保存当前工作目录
     original_dir = os.getcwd()
-    target_branch = 'justForLanguageTeam'
 
     try:
         # 进入仓库目录
@@ -31,7 +30,7 @@ def update_and_merge_branches(repo_dir, main_branch, webUrl):
 
         # 更新 main 分支
         subprocess.run(['git', 'checkout', main_branch], check=True)
-        subprocess.run(['git', 'pull', 'origin', main_branch], check=True)
+        subprocess.run(['git', 'pull'], check=True)
 
         # 切换到目标分支
         subprocess.run(['git', 'checkout', target_branch], check=True)
@@ -44,7 +43,7 @@ def update_and_merge_branches(repo_dir, main_branch, webUrl):
             print(merge_result.stderr)
         else:
             # 推送目标分支到 origin
-            subprocess.run(['git', 'push', 'origin', target_branch], check=True)
+            subprocess.run(['git', 'push'], check=True)
 
     except subprocess.CalledProcessError as e:
         print(f"An error occurred while running git command: {e}")
@@ -53,5 +52,5 @@ def update_and_merge_branches(repo_dir, main_branch, webUrl):
         # 恢复原来的工作目录
         os.chdir(original_dir)
 
-update_and_merge_branches(os.path.join(current_directory, 'web_separation'), 'main', WEB_SEPARATION_URL)
-update_and_merge_branches(os.path.join(current_directory, 'web-trade'), 'main', WEB_TRADE_URL)
+update_and_merge_branches(os.path.join(current_directory, 'web_separation'), 'main', 'justForLanguageTeam', WEB_SEPARATION_URL)
+update_and_merge_branches(os.path.join(current_directory, 'web-trade'), 'main', 'backup/justForLanguageTeam', WEB_TRADE_URL)
