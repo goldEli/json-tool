@@ -54,8 +54,11 @@ function readJSONValues(filePath, keys) {
 
 
 function onReplace(lan) {
-    const targetFilePath = path.join(process.cwd(), `./${lan}.json`);
-    const sourceFilePath = path.resolve('/Users/eli/Documents/weex/web-language', targetFilePath)
+    const fileName = `./${lan}.json`
+    const targetFilePath = path.join(process.cwd(), fileName);
+    const sourceFilePath = path.resolve('/Users/eli/Documents/weex/web-language', fileName)
+    console.log('targetFilePath', targetFilePath)
+    console.log('sourceFilePath', sourceFilePath)
     // const sourceFilePath = path.resolve('/Users/eli/Documents/weex/h5_language', targetFilePath)
     const jsonKeysFile = path.join(process.cwd(), './keys.json');
     const jsonData = fs.readFileSync(jsonKeysFile, 'utf8');
@@ -123,44 +126,19 @@ export function replaceI18n() {
         name: 'language',
         message: '选择语言',
         choices: options.map(item => item.name),
-        correctChoice: 3
+        correctChoice: 0
       });
       
        prompt
         .run()
         .then(answer => {
-          if (answer.correct) {
-            console.log('Correct!');
-          } else {
+            console.log(answer);
             onReplace(answer.correctAnswer)
-          }
+        //   if (answer.correct) {
+        //     console.log('Correct!');
+        //   } else {
+        //     
+        //   }
         })
         .catch(console.error);
-//     inquirer
-//   .prompt([
-//     {
-//       type: 'list',
-//       name: 'framework',
-//       message: 'What JavaScript framework do you use?',
-//       choices: ['React', 'Angular', 'Vue.js'],
-//     },
-//   ])
-//   .then((answers) => {
-//     console.log('Chosen framework:', answers.framework);
-//   });
-    // inquirer.prompt([
-    //     {
-    //         type: 'list',
-    //         name: 'selectedOption',
-    //         message: 'Select an option:',
-    //         choices: options.map(option => option.name),
-    //         // when: () => !process.argv.includes('-r')
-    //     }
-    // ]).then(answers => {
-    //     console.log('%c [ answers ]-125', 'font-size:13px; background:pink; color:#bf2c9f;', answers)
-    //     // if (process.argv.includes('-r')) {
-    //         // showDropdown();
-    //     // }
-    // });
-
 }
