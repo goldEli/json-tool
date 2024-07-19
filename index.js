@@ -10,6 +10,7 @@ import { dirname } from 'path';
 import { stg_trade, stg_web } from './src/config/url.js';
 import { open } from './src/utils/open.js';
 import { selectDeployUrl } from './src/deploy.js';
+import { replaceI18n } from './src/replaceI18n.js';
 
 // 获取当前文件的 URL
 const __filename = fileURLToPath(import.meta.url);
@@ -19,7 +20,7 @@ const __dirname = dirname(__filename);
 
 program
     .option('-u, --url <url>', 'JSON file URL')
-    .option('-r, --replace <replace>', 'Replace JSON value')
+    .option('-r, --replace', 'Replace JSON value')
     .option('-l, --lan', 'update language')
     .option('-d, --deploy ', 'deploy stg sever')
     // .option('-c, --compareValue <value>', 'Value to compare')
@@ -44,10 +45,9 @@ if (options.lan) {
         console.log(`Child process exited with code ${code}`);
     });
 } else if (options.deploy) {
-
     selectDeployUrl()
-
-
+} else if (options.replace) {
+    replaceI18n()
 } else {
     const compareValue = clipboardy.readSync().trim();
     if (compareValue) {

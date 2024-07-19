@@ -33,12 +33,8 @@ export const selectDeployUrl = () => {
       when: () => !process.argv.includes('-d')
     }
   ]).then(answers => {
-    if (process.argv.includes('-d')) {
       showDropdown();
-    } else {
-      const selected = options.find(option => option.name === answers.selectedOption);
-      console.log(`Selected option: ${selected.value}`);
-    }
+  
   });
 };
 
