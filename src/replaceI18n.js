@@ -133,7 +133,7 @@ export function replaceI18n() {
         .run()
         .then(answer => {
             console.log(answer);
-            onReplace(answer.correctAnswer)
+            onReplace(answer.selectedAnswer)
         //   if (answer.correct) {
         //     console.log('Correct!');
         //   } else {
