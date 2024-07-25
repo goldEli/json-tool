@@ -11,6 +11,7 @@ import { stg_trade, stg_web } from './src/config/url.js';
 import { open } from './src/utils/open.js';
 import { selectDeployUrl } from './src/deploy.js';
 import { replaceI18n } from './src/replaceI18n.js';
+import { replaceI18nAffilicate } from './src/replaceI18nAffilicate.js';
 
 // 获取当前文件的 URL
 const __filename = fileURLToPath(import.meta.url);
@@ -21,6 +22,7 @@ const __dirname = dirname(__filename);
 program
     .option('-u, --url <url>', 'JSON file URL')
     .option('-r, --replace', 'Replace JSON value')
+    .option('-ra, --replaceAffiliate', 'Replace Affiliate JSON value')
     .option('-l, --lan', 'update language')
     .option('-d, --deploy ', 'deploy stg sever')
     // .option('-c, --compareValue <value>', 'Value to compare')
@@ -46,6 +48,8 @@ if (options.lan) {
     });
 } else if (options.deploy) {
     selectDeployUrl()
+} else if (options.replaceAffiliate) {
+    replaceI18nAffilicate()
 } else if (options.replace) {
     replaceI18n()
 } else {
